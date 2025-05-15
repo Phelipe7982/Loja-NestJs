@@ -1,0 +1,16 @@
+# Instalação do Nest.js (criando o projeto):
+
+    - Criando de forma local:
+        npx @nestjs/cli new 'nome_do_projeto'
+    
+    - Criando de forma global (não recomendado por possíveis erros de versionamento no futuro):
+        npm i -g @nestjs/cli
+
+
+# Rodando o projeto Nest.js na sua máquina:
+    npm run start
+
+# Rodando o projeto na máquina em tempo real (watch mode):
+    npm run start:dev
+
+OBS1.: Por padrão ele roda na porta 3000 caso a gente não configure uma variável de ambiente.
