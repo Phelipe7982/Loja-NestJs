@@ -1,11 +1,10 @@
-import { UsuarioInterface } from "./Usuario.interface";
+import { UsuarioInterface } from "./usuario.interface";
 
 export class UsuarioRepository {
     private usuarios: UsuarioInterface[] = [];
 
-    async salvar(usuario) {
+    async salvar(usuario: UsuarioInterface) {
         this.usuarios.push(usuario);
-        console.log(this.usuarios);
     }
 
     async listar() {
