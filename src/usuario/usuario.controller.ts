@@ -5,7 +5,7 @@ import { UsuarioRepository } from "./usuario.repository";
 @Controller('/usuarios')
 export class UsuarioController {
 
-    private usuarioRepository = new UsuarioRepository();
+    constructor(private usuarioRepository: UsuarioRepository) { }
 
     // Decorator Post para dizer que é uma requisição do tipo post
     @Post()

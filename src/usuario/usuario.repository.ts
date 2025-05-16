@@ -1,5 +1,8 @@
+import { Injectable } from "@nestjs/common";
 import { UsuarioInterface } from "./usuario.interface";
 
+// Usando o decorator para declarar esta classe como um provider
+@Injectable()
 export class UsuarioRepository {
     private usuarios: UsuarioInterface[] = [];
 
