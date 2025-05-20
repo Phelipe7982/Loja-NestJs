@@ -1,6 +1,7 @@
 import { UsuarioInterface } from "../usuario.interface";
 // class-validator (biblioteca do nest que permite realizar validações do corpo da requisição)
 import { IsEmail, IsNotEmpty, IsString, MinLength } from "class-validator";
+import { EmailisUnique } from "../validation/email-is-unique-validator";
 
 export class CriaUsuarioDTO implements UsuarioInterface {
 
@@ -11,6 +12,7 @@ export class CriaUsuarioDTO implements UsuarioInterface {
 
     // @IsEmail()      // Diz que este atributo é um email
     @IsEmail(undefined, { message: "O email informado é inválido" })   // o undefined é porque não queremos passar nenhuma customização de validação
+    @EmailisUnique({ message: "Já existe um usuário com este email" })  // Um decorator personalizado para validação de email único
     email: string;
 
     @IsString({ message: "A senha deve ser uma string" })     // Diz que este atributo deve ser uma string
