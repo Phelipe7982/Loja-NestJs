@@ -1,9 +1,10 @@
-import { Controller, Post, Body, Get } from "@nestjs/common";
+import { Controller, Post, Body, Get, Put, Param } from "@nestjs/common";
 import { UsuarioRepository } from "./usuario.repository";
 import { CriaUsuarioDTO } from "./dto/CriaUsuario.dto";
 import { UsuarioEntity } from "./usuario.entity";
 import { v4 as uuid } from "uuid";
 import { ListaUsuarioDTO } from "./dto/ListaUsuario.dto";
+import { AtualizaUsuarioDTO } from "./dto/AtualizaUsuario.dto";
 
 // Usando o decorator para declarar uma rota /usuarios
 @Controller('/usuarios')
@@ -34,5 +35,12 @@ export class UsuarioController {
         // Adicionando o user no array de usuarios do repository
         this.usuarioRepository.salvar(usuarioEntity);
         return { msg: `O usuário do id ${usuarioEntity.id} foi cadastrado com sucesso!` };
+    }
+
+    // Decorator Put para dizer que é uma requisição de atualização de dados, passando o parâmetro entre aspas
+    @Put('/:id')
+    async atualizaUsuario(@Param('id') id: string, @Body() novosDados: AtualizaUsuarioDTO) {
+        const usuarioAtualizado = await this.usuarioRepository.atualizar(id, novosDados);
+        return { usuario: usuarioAtualizado, msg: `O usuário foi cadastrado com sucesso!` };
     }
 }

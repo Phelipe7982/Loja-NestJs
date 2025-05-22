@@ -21,4 +21,25 @@ export class UsuarioRepository {
         const possivelUsuario = this.usuarios.find((usuario) => usuario.email === email);
         return possivelUsuario !== undefined;       // Retorna true se houver um usuário com o email informado
     }
+
+    // Método para atualizar os dados do usuário passando como parâmetro o seu id
+    // Usando o Partial do Ts para tornar todas os atributos de UsuarioEntity serem opcionais
+    async atualizar(id: string, dadosDeAtualizacao: Partial<UsuarioEntity>) {
+        const possivelUsuario = this.usuarios.find((usuarioSalvo) => usuarioSalvo.id === id);
+
+        if (!possivelUsuario) {
+            throw new Error("Usuário não existe.");
+        }
+
+        // Transforma este dadosDeAtualização em um array de arrays para dar um forEach
+        Object.entries(dadosDeAtualizacao).forEach(([chave, valor]) => {
+            if (chave === 'id') {
+                return;
+            }
+
+            possivelUsuario[chave] = valor;
+        })
+
+        return possivelUsuario;
+    }
 }
