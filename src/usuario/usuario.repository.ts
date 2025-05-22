@@ -1,13 +1,13 @@
 import { Injectable } from "@nestjs/common";
-import { UsuarioInterface } from "./usuario.interface";
+import { UsuarioEntity } from "./usuario.entity";
 
 // Usando o decorator para declarar esta classe como um provider
 @Injectable()
 export class UsuarioRepository {
-    private usuarios: UsuarioInterface[] = [];      // Array de usuários
+    private usuarios: UsuarioEntity[] = [];      // Array de usuários
 
     // Método para salvar um usuário
-    async salvar(usuario: UsuarioInterface) {
+    async salvar(usuario: UsuarioEntity) {
         this.usuarios.push(usuario);
     }
 

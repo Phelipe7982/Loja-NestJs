@@ -1,9 +1,8 @@
-import { UsuarioInterface } from "../usuario.interface";
 // class-validator (biblioteca do nest que permite realizar validações do corpo da requisição)
 import { IsEmail, IsNotEmpty, IsString, MinLength } from "class-validator";
 import { EmailisUnique } from "../validation/email-is-unique-validator";
 
-export class CriaUsuarioDTO implements UsuarioInterface {
+export class CriaUsuarioDTO {
 
     // Diz que este atributo deve ser uma string e não pode ser vazio
     @IsString({ message: "O nome deve ser uma string" })
