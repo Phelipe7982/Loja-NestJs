@@ -22,14 +22,22 @@ export class UsuarioRepository {
         return possivelUsuario !== undefined;       // Retorna true se houver um usuário com o email informado
     }
 
-    // Método para atualizar os dados do usuário passando como parâmetro o seu id
-    // Usando o Partial do Ts para tornar todas os atributos de UsuarioEntity serem opcionais
-    async atualizar(id: string, dadosDeAtualizacao: Partial<UsuarioEntity>) {
+    // Método privado para ver se o id passado pelo parâmetro, é referente a um usuário válido (existente)
+    private buscaPorId(id: string) {
         const possivelUsuario = this.usuarios.find((usuarioSalvo) => usuarioSalvo.id === id);
 
         if (!possivelUsuario) {
             throw new Error("Usuário não existe.");
         }
+
+        return possivelUsuario;
+    }
+
+    // Método para atualizar os dados do usuário passando como parâmetro o seu id
+    // Usando o Partial do Ts para tornar todas os atributos de UsuarioEntity serem opcionais
+    async atualizar(id: string, dadosDeAtualizacao: Partial<UsuarioEntity>) {
+        // Se o id não for válido ele nem entra aqui!
+        const usuario = this.buscaPorId(id);
 
         // Transforma este dadosDeAtualização em um array de arrays para dar um forEach
         Object.entries(dadosDeAtualizacao).forEach(([chave, valor]) => {
@@ -37,9 +45,17 @@ export class UsuarioRepository {
                 return;
             }
 
-            possivelUsuario[chave] = valor;
+            usuario[chave] = valor;
         })
 
-        return possivelUsuario;
+        return usuario;
+    }
+
+    async deletar(id: string) {
+        // Se o id não for válido ele nem entra aqui!
+        const usuario = this.buscaPorId(id);
+        this.usuarios = this.usuarios.filter(usuarioSalvo => usuarioSalvo.id !== id);
+
+        return usuario;
     }
 }
