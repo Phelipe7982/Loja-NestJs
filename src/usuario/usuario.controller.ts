@@ -46,7 +46,7 @@ export class UsuarioController {
         const usuarioAtualizado = await this.usuarioRepository.atualizar(id, novosDados);
         return {
             usuario: usuarioAtualizado,
-            msg: `O usuário foi cadastrado com sucesso!`
+            msg: `O usuário foi atualizado com sucesso!`
         };
     }
 
