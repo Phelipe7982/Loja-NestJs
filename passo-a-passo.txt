@@ -14,3 +14,22 @@
     npm run start:dev
 
 OBS1.: Por padrão ele roda na porta 3000 caso a gente não configure uma variável de ambiente.
+
+______________________________________________________________________________________________________________
+
+# Instalando as bibliotecas de dependência:
+
+    - npm i class-validator && npm i class-transformer
+    (para instalar as bibliotecas que realizam a validação dos dados passados pela API)
+
+
+    - npm i @nestjs/typeorm typeorm
+    (para instalar o typeorm para mexer com banco de dados - configurando tudo no arquivo config.service.ts)
+
+
+    - npm i @nestjs/config
+    (configurações no arquivo app.module.ts e para pegar as variáveis de ambiente do .env no arquivo config.service.ts)
+
+
+    - npm i pg --save
+    (baixando o pacote do banco de dados do Postgres - para o nosso projeto reconhecê-lo)
