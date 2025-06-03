@@ -1,19 +1,60 @@
-// class-validator (biblioteca do nest que permite realizar validações do corpo da requisição)
-import { IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString } from "class-validator";
+import { Type } from 'class-transformer';
+import {
+    ArrayMinSize,
+    IsArray,
+    IsNotEmpty,
+    IsNumber,
+    IsOptional,
+    IsString,
+    IsUUID,
+    Min,
+    ValidateNested,
+} from 'class-validator';
+import { CaracteristicaProdutoDTO, ImagemProdutoDTO } from './CriaProduto.dto';
 
 export class AtualizaProdutoDTO {
+    @IsUUID(undefined, { message: 'ID do produto inválido' })
+    id: string;
 
-    // Diz que este atributo deve ser uma string e não pode ser vazio
-    @IsString({ message: "O nome deve ser uma string" })
-    @IsNotEmpty({ message: "O nome é um campo obrigatório" })
-    @IsOptional()       // Tornando o campo opicional
+    @IsUUID(undefined, { message: 'ID de usuário inválido' })
+    usuarioId: string;
+
+    @IsString()
+    @IsNotEmpty({ message: 'Nome do produto não pode ser vazio' })
+    @IsOptional()
     nome: string;
 
-    @IsNumber({ allowInfinity: false, allowNaN: false }, { message: "O preço deve ser um numero" })     // Diz que este atributo deve ser uma string
-    @IsPositive({ message: "O preco deve ser um numero positivo" })
-    @IsOptional()       // Tornando o campo opicional
+    @IsNumber({ maxDecimalPlaces: 2, allowNaN: false, allowInfinity: false })
+    @IsOptional()
+    @Min(1, { message: 'O valor precisa ser maior que zero' })
+    @IsOptional()
     preco: number;
-}
 
-// Os campos viraram todos opicionais já que este é o DTO para atualizar os dados do produto já salvo
-// logo, o usuário decide qual dado ele quer atualizar
+    @IsNumber()
+    @Min(0, { message: 'Quantidade mínima inválida' })
+    @IsOptional()
+    quantidadeDisponivel: number;
+
+    @IsString()
+    @IsOptional()
+    descricao: string;
+
+    @ValidateNested()
+    @IsArray()
+    @ArrayMinSize(3)
+    @Type(() => CaracteristicaProdutoDTO)
+    @IsOptional()
+    caracteristicas: CaracteristicaProdutoDTO[];
+
+    @ValidateNested()
+    @IsArray()
+    @ArrayMinSize(1)
+    @Type(() => ImagemProdutoDTO)
+    @IsOptional()
+    imagens: ImagemProdutoDTO[];
+
+    @IsString()
+    @IsNotEmpty({ message: 'Categoria do produto não pode ser vazia' })
+    @IsOptional()
+    categoria: string;
+}

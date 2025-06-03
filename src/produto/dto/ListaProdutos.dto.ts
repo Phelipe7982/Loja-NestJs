@@ -1,7 +1,21 @@
+class ListaCaracteristicaProdutoDTO {
+    nome: string;
+    descricao: string;
+}
+
+class ListaImagemProdutoDTO {
+    url: string;
+    descricao: string;
+}
+
 export class ListaProdutoDTO {
-    constructor(
-        readonly id: string,
-        readonly nome: string,
-        readonly preco: number
-    ) { }
+    id: string;
+    usuarioId: string;
+    nome: string;
+    preco: number;
+    quantidade: number;
+    descricao: string;
+    categoria: string;
+    caracteristicas: ListaCaracteristicaProdutoDTO[];
+    imagens: ListaImagemProdutoDTO[];
 }

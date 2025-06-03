@@ -1,52 +1,45 @@
-import { Injectable } from "@nestjs/common";
-import { ProdutoEntity } from "./produto.entity";
+import { Injectable } from '@nestjs/common';
+import { ProdutoEntity } from './produto.entity';
 
 @Injectable()
 export class ProdutoRepository {
     private produtos: ProdutoEntity[] = [];
 
-    async salvar(produto: ProdutoEntity) {
-        this.produtos.push(produto);
-    }
-
-    async listar(): Promise<ProdutoEntity[]> {
+    listaTodos() {
         return this.produtos;
     }
 
-    // Método privado para ver se o id passado pelo parâmetro, é referente a um produto válido (existente)
-    private buscaPorId(id: string) {
-        const possivelProduto = this.produtos.find((produtoSalvo) => produtoSalvo.id === id);
+    salva(dadosProduto: ProdutoEntity) {
+        this.produtos.push(dadosProduto);
+        return dadosProduto;
+    }
 
-        if (!possivelProduto || possivelProduto === undefined) {
-            throw new Error("O produto não existe.");
+    private buscaPorId(id: string) {
+        const possivelProduto = this.produtos.find((produto) => produto.id === id);
+
+        if (!possivelProduto) {
+            throw new Error('Produto não existe');
         }
 
         return possivelProduto;
     }
 
-    // Método para atualizar os dados do produto passando como parâmetro o seu id
-    // Usando o Partial do Ts para tornar todas os atributos de ProdutoEntity serem opcionais
-    async atualizar(id: string, dadosDeAtualizacao: Partial<ProdutoEntity>) {
-        // Se o id não for válido ele nem entra aqui!
+    async atualiza(id: string, dadosProduto: Partial<ProdutoEntity>) {
+        const dadosNaoAtualizaveis = ['id', 'usuarioId'];
         const produto = this.buscaPorId(id);
-
-        // Transforma este dadosDeAtualização em um array de arrays para dar um forEach
-        Object.entries(dadosDeAtualizacao).forEach(([chave, valor]) => {
-            if (chave === 'id') {
+        Object.entries(dadosProduto).forEach(([chave, valor]) => {
+            if (dadosNaoAtualizaveis.includes(chave)) {
                 return;
             }
-
             produto[chave] = valor;
-        })
+        });
 
         return produto;
     }
 
-    async deletar(id: string) {
-        // Se o id não for válido ele nem entra aqui!
-        const produto = this.buscaPorId(id);
-        this.produtos = this.produtos.filter(produtoSalvo => produtoSalvo.id !== id);
-
-        return produto;
+    async remove(id: string) {
+        const produtoRemovido = this.buscaPorId(id);
+        this.produtos = this.produtos.filter((produto) => produto.id !== id);
+        return produtoRemovido;
     }
 }
