@@ -26,7 +26,7 @@ export class ProdutoEntity {
     // caracteristicas: CaracteristicaProduto[];
     // imagens: ImagemProduto[];
 
-    // Estes campos serão criados pelo próprio typeorm (não fazem parte inicialmente da nossa entidade)
+    // Estes campos serão criados pelo próprio typeorm (não fazem parte inicialmente da entidade, mas é recomendado toda entidade ter)
     @CreateDateColumn({ name: 'created_at' })
     createdAt: string;
 

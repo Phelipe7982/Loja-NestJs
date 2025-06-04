@@ -16,7 +16,7 @@ export class UsuarioEntity {
     @Column({ name: 'senha', length: 255, nullable: false })    // O length depende da forma que a senha será codificada e armazenada (hash no nosso caso)
     senha: string;
 
-    // Estes campos serão criados pelo próprio typeorm (não fazem parte inicialmente da nossa entidade)
+    // Estes campos serão criados pelo próprio typeorm (não fazem parte inicialmente da entidade, mas é recomendado toda entidade ter)
     @CreateDateColumn({ name: 'created_at' })
     createdAt: string;
 
