@@ -5,22 +5,24 @@ import { UsuarioEntity } from "./usuario.entity";
 import { v4 as uuid } from "uuid";
 import { ListaUsuarioDTO } from "./dto/ListaUsuario.dto";
 import { AtualizaUsuarioDTO } from "./dto/AtualizaUsuario.dto";
+import { UsuarioService } from "./usuario.service";
 
 // Usando o decorator para declarar uma rota /usuarios
 @Controller('/usuarios')
 export class UsuarioController {
 
-    constructor(private usuarioRepository: UsuarioRepository) { }
+    constructor(
+        private usuarioRepository: UsuarioRepository,
+        private usuarioService: UsuarioService
+    ) { }
 
     // Decorator Get para dizer que é uma requisição do tipo get
     @Get()
     async listaUsuarios() {
         // Guarda todos os dados do user na variável usuariosSalvos
-        const usuariosSalvos = await this.usuarioRepository.listar();
-        // Modifica com o .map para guardar em usuariosLista apenas os seus ids e seus nomes
-        const usuariosLista = usuariosSalvos.map(usuario => new ListaUsuarioDTO(usuario.id, usuario.nome))
+        const usuariosSalvos = await this.usuarioService.listaUsuarios();
         // Retorna apenas essas informações, ocultando o restante (email e senha)
-        return usuariosLista;
+        return usuariosSalvos;
     }
 
     // Decorator Post para dizer que é uma requisição do tipo post
