@@ -7,10 +7,15 @@
         npm i -g @nestjs/cli
 
 
-# Rodando o projeto Nest.js na sua máquina:
+# Rodando o projeto:
+
+ - Rodando o banco de dados no Docker:
+    docker-compose up -d
+
+ - Rodando o projeto Nest.js na sua máquina:
     npm run start
 
-# Rodando o projeto na máquina em tempo real (watch mode):
+ - Rodando o projeto na máquina em tempo real (watch mode):
     npm run start:dev
 
 OBS1.: Por padrão ele roda na porta 3000 caso a gente não configure uma variável de ambiente.
@@ -22,6 +27,8 @@ ________________________________________________________________________________
     - npm i class-validator && npm i class-transformer
     (para instalar as bibliotecas que realizam a validação dos dados passados pela API)
 
+    - npm i uuid
+    (para baixar o pacote uuid para gerar um id aleatório)
 
     - npm i @nestjs/typeorm typeorm
     (para instalar o typeorm para mexer com banco de dados - configurando tudo no arquivo config.service.ts)
