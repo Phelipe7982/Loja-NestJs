@@ -3,6 +3,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 @Entity({ name: "produto_imagens" })
 export class ProdutoImagem {
 
+    // Toda entidade precisa de um id (obrigatório para o typeorm)
     @PrimaryGeneratedColumn('uuid')
     id: string;
 

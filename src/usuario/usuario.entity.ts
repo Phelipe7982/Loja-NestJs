@@ -3,6 +3,8 @@ import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, P
 // Usando o typeorm para citar as nossas entidades que serão as tabelas no nosso db
 @Entity({ name: 'usuarios' })     // nome da entidade (que será uma tabela do nosso db)
 export class UsuarioEntity {
+
+    // Toda entidade precisa de um id (obrigatório para o typeorm)
     @PrimaryGeneratedColumn('uuid')
     id: string;
 

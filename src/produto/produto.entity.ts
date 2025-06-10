@@ -2,6 +2,8 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 
 @Entity({ name: "produtos" })
 export class ProdutoEntity {
+
+    // Toda entidade precisa de um id (obrigatório para o typeorm)
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
