@@ -34,8 +34,8 @@ export class UsuarioController {
         usuarioEntity.email = dadosDoUsuario.email;     // Salvando o email do user no usuarioEntity
         usuarioEntity.senha = dadosDoUsuario.senha;     // Salvando a senha do user no usuarioEntity
 
-        // Adicionando o user no array de usuarios do repository
-        this.usuarioRepository.salvar(usuarioEntity);
+        // Acessa a função do usuarioService
+        this.usuarioService.criaUsuario(usuarioEntity);
         return {
             usuario: usuarioEntity,
             msg: `O usuário foi cadastrado com sucesso!`
@@ -45,7 +45,7 @@ export class UsuarioController {
     // Decorator Put para dizer que é uma requisição de atualização de dados, passando o parâmetro entre aspas
     @Put('/:id')
     async atualizaUsuario(@Param('id') id: string, @Body() novosDados: AtualizaUsuarioDTO) {
-        const usuarioAtualizado = await this.usuarioRepository.atualizar(id, novosDados);
+        const usuarioAtualizado = await this.usuarioService.atualizaUsuario(id, novosDados);
         return {
             usuario: usuarioAtualizado,
             msg: `O usuário foi atualizado com sucesso!`
@@ -54,7 +54,7 @@ export class UsuarioController {
 
     @Delete('/:id')
     async removeUsuario(@Param('id') id: string) {
-        const usuarioRemovido = await this.usuarioRepository.deletar(id);
+        const usuarioRemovido = await this.usuarioService.deletaUsuario(id);
         return {
             usuario: usuarioRemovido,
             msg: "Usuário removido com sucesso!"
