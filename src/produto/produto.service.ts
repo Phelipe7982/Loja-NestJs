@@ -23,6 +23,7 @@ export class ProdutoService {
 
     async atualizaProduto(id: string, produtoEntity: AtualizaProdutoDTO) {
         await this.produtoRepository.update(id, produtoEntity);
+        return this.produtoRepository.findOne({ where: { id } });
     }
 
     async deletaProduto(id: string) {
