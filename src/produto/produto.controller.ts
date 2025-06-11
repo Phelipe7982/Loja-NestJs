@@ -37,7 +37,10 @@ export class ProdutoController {
         // produto.imagens = dadosProduto.imagens;
 
         const produtoCadastrado = this.produtoService.criaProduto(produto);
-        return produtoCadastrado;
+        return {
+            mensagem: "Produto criado com sucesso!",
+            produto: produtoCadastrado
+        };
     }
 
     @Get()

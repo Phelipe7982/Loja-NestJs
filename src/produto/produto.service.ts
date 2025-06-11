@@ -18,7 +18,7 @@ export class ProdutoService {
     }
 
     async criaProduto(produtoEntity: ProdutoEntity) {
-        await this.produtoRepository.save(produtoEntity);
+        return await this.produtoRepository.save(produtoEntity);
     }
 
     async atualizaProduto(id: string, produtoEntity: AtualizaProdutoDTO) {
