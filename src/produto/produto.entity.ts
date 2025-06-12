@@ -28,11 +28,15 @@ export class ProdutoEntity {
     categoria: string;
 
     // Relação do TypeORM de 1 ... N (um para muitos) - Um produto pode possuir n caracteristicas
-    @OneToMany(() => ProdutoCaracteristicaEntity, (produtoCaracteristicaEntity) => produtoCaracteristicaEntity.produto)
+    @OneToMany(() => ProdutoCaracteristicaEntity, (produtoCaracteristicaEntity) =>
+        // cascade = passar as informações da tabela pai para a filha e vice-versa | eager: sempre retornar ambas as infos de ambas as entidades (não obrigatória)
+        produtoCaracteristicaEntity.produto, { cascade: true, eager: true })
     caracteristicas: ProdutoCaracteristicaEntity[];
 
     // Relação do TypeORM de 1 ... N (um para muitos) - Um produto pode possuir n imagens
-    @OneToMany(() => ProdutoImagemEntity, (produtoImagemEntity) => produtoImagemEntity.produto)
+    @OneToMany(() => ProdutoImagemEntity, (produtoImagemEntity) =>
+        // cascade = passar as informações da tabela pai para a filha e vice-versa | eager: sempre retornar ambas as infos de ambas as entidades (não obrigatória)
+        produtoImagemEntity.produto, { cascade: true, eager: true })
     imagens: ProdutoImagemEntity[];
 
     // Estes campos serão criados pelo próprio typeorm (não fazem parte inicialmente da entidade, mas é recomendado toda entidade ter)

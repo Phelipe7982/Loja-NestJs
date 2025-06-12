@@ -15,6 +15,8 @@ export class ProdutoImagemEntity {
     descricao: string;
 
     // Relação do TypeORM de N ... 1 (muitos para um) - N imagens podem pertencer a um produto
-    @ManyToOne(() => ProdutoEntity, (produto) => produto.imagens)
+    @ManyToOne(() => ProdutoEntity, (produto) =>
+        // orphanedRowAction = quando existir um registro nesta tabela sem nenhuma relação ele será deletado
+        produto.imagens, { orphanedRowAction: 'delete', onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     produto: ProdutoEntity;
 }

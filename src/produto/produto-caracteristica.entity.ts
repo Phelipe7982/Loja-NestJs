@@ -15,6 +15,8 @@ export class ProdutoCaracteristicaEntity {
     descricao: string;
 
     // Relação do TypeORM de N ... 1 (muitos para 1) - N caracteristicas podem pertencer a um produto (o inverso da entidade pai)
-    @ManyToOne(() => ProdutoEntity, (produto) => produto.caracteristicas)
+    @ManyToOne(() => ProdutoEntity, (produto) =>
+        // orphanedRowAction = quando existir um registro nesta tabela sem nenhuma relação ele será deletado
+        produto.caracteristicas, { orphanedRowAction: 'delete', onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     produto: ProdutoEntity;
 }
