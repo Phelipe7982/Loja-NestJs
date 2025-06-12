@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToMany } from 'typeorm';
+import { ProdutoCaracteristicaEntity } from './produto-caracteristica.entity';
+import { ProdutoImagemEntity } from './produto-imagem.entity';
 
 @Entity({ name: "produtos" })
 export class ProdutoEntity {
@@ -25,8 +27,13 @@ export class ProdutoEntity {
     @Column({ name: 'categoria', length: 100, nullable: false })
     categoria: string;
 
-    // caracteristicas: CaracteristicaProduto[];
-    // imagens: ImagemProduto[];
+    // Relação do TypeORM de 1 ... N (um para muitos) - Um produto pode possuir n caracteristicas
+    @OneToMany(() => ProdutoCaracteristicaEntity, (produtoCaracteristicaEntity) => produtoCaracteristicaEntity.produto)
+    caracteristicas: ProdutoCaracteristicaEntity[];
+
+    // Relação do TypeORM de 1 ... N (um para muitos) - Um produto pode possuir n imagens
+    @OneToMany(() => ProdutoImagemEntity, (produtoImagemEntity) => produtoImagemEntity.produto)
+    imagens: ProdutoImagemEntity[];
 
     // Estes campos serão criados pelo próprio typeorm (não fazem parte inicialmente da entidade, mas é recomendado toda entidade ter)
     @CreateDateColumn({ name: 'created_at' })
