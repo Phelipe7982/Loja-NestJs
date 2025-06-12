@@ -14,6 +14,8 @@ import { CriaProdutoDTO } from './dto/CriaProduto.dto';
 import { ProdutoEntity } from './produto.entity';
 import { ProdutoRepository } from './produto.repository';
 import { ProdutoService } from './produto.service';
+import { ProdutoCaracteristicaEntity } from './produto-caracteristica.entity';
+import { ProdutoImagemEntity } from './produto-imagem.entity';
 
 @Controller('produtos')
 export class ProdutoController {
@@ -33,10 +35,24 @@ export class ProdutoController {
         produto.quantidade = dadosProduto.quantidade;
         produto.descricao = dadosProduto.descricao;
         produto.categoria = dadosProduto.categoria;
-        produto.caracteristicas = dadosProduto.caracteristicas;
-        produto.imagens = dadosProduto.imagens;
 
-        const produtoCadastrado = this.produtoService.criaProduto(produto);
+        // Mapear características
+        produto.caracteristicas = dadosProduto.caracteristicas.map((caracteristicaDTO) => {
+            const caracteristica = new ProdutoCaracteristicaEntity();
+            caracteristica.nome = caracteristicaDTO.nome;
+            caracteristica.descricao = caracteristicaDTO.descricao;
+            return caracteristica;
+        });
+
+        // Mapear imagens
+        produto.imagens = dadosProduto.imagens.map((imagemDTO) => {
+            const imagem = new ProdutoImagemEntity();
+            imagem.url = imagemDTO.url;
+            imagem.descricao = imagemDTO.descricao;
+            return imagem;
+        });
+
+        const produtoCadastrado = await this.produtoService.criaProduto(produto);
         return {
             mensagem: "Produto criado com sucesso!",
             produto: produtoCadastrado
