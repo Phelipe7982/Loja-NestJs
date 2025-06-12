@@ -1,17 +1,5 @@
 import { Type } from 'class-transformer';
-import {
-    ArrayMinSize,
-    IsArray,
-    IsNotEmpty,
-    IsNumber,
-    IsString,
-    IsUrl,
-    IsUUID,
-    MaxLength,
-    Min,
-    ValidateNested,
-} from 'class-validator';
-import { ProdutoEntity } from '../produto.entity';
+import { ArrayMinSize, IsArray, IsNotEmpty, IsNumber, IsString, IsUrl, IsUUID, MaxLength, Min, ValidateNested } from 'class-validator';
 
 export class CaracteristicaProdutoDTO {
 

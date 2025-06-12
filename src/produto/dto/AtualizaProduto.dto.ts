@@ -1,15 +1,5 @@
 import { Type } from 'class-transformer';
-import {
-    ArrayMinSize,
-    IsArray,
-    IsNotEmpty,
-    IsNumber,
-    IsOptional,
-    IsString,
-    IsUUID,
-    Min,
-    ValidateNested,
-} from 'class-validator';
+import { ArrayMinSize, IsArray, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID, Min, ValidateNested } from 'class-validator';
 import { CaracteristicaProdutoDTO, ImagemProdutoDTO } from './CriaProduto.dto';
 
 export class AtualizaProdutoDTO {

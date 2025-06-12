@@ -3,7 +3,6 @@ import { UsuarioRepository } from "./usuario.repository";
 import { CriaUsuarioDTO } from "./dto/CriaUsuario.dto";
 import { UsuarioEntity } from "./usuario.entity";
 import { v4 as uuid } from "uuid";
-import { ListaUsuarioDTO } from "./dto/ListaUsuario.dto";
 import { AtualizaUsuarioDTO } from "./dto/AtualizaUsuario.dto";
 import { UsuarioService } from "./usuario.service";
 
@@ -12,7 +11,6 @@ import { UsuarioService } from "./usuario.service";
 export class UsuarioController {
 
     constructor(
-        private usuarioRepository: UsuarioRepository,
         private usuarioService: UsuarioService
     ) { }
 

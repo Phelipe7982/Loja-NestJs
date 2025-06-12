@@ -3,7 +3,6 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { ProdutoEntity } from "./produto.entity";
 import { Repository } from "typeorm";
 import { AtualizaProdutoDTO } from "./dto/AtualizaProduto.dto";
-import { CriaProdutoDTO } from "./dto/CriaProduto.dto";
 
 @Injectable()
 export class ProdutoService {
