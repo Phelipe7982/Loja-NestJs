@@ -2,6 +2,34 @@ import { Type } from 'class-transformer';
 import { ArrayMinSize, IsArray, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID, Min, ValidateNested } from 'class-validator';
 import { CaracteristicaProdutoDTO, ImagemProdutoDTO } from './CriaProduto.dto';
 
+export class AtualizaCaracteristicaProdutoDTO {
+    @IsUUID()
+    @IsOptional()
+    id?: string;
+
+    @IsString()
+    @IsOptional()
+    nome?: string;
+
+    @IsString()
+    @IsOptional()
+    descricao?: string;
+}
+
+export class AtualizaImagemProdutoDTO {
+    @IsUUID()
+    @IsOptional()
+    id?: string;
+
+    @IsString()
+    @IsOptional()
+    url?: string;
+
+    @IsString()
+    @IsOptional()
+    descricao?: string;
+}
+
 export class AtualizaProdutoDTO {
     @IsUUID(undefined, { message: 'ID do produto inválido' })
     @IsOptional()
@@ -31,22 +59,21 @@ export class AtualizaProdutoDTO {
     @IsOptional()
     descricao: string;
 
-    @ValidateNested()
-    @IsArray()
-    @ArrayMinSize(3)
-    @Type(() => CaracteristicaProdutoDTO)
-    @IsOptional()
-    caracteristicas: CaracteristicaProdutoDTO[];
-
-    @ValidateNested()
-    @IsArray()
-    @ArrayMinSize(1)
-    @Type(() => ImagemProdutoDTO)
-    @IsOptional()
-    imagens: ImagemProdutoDTO[];
-
     @IsString()
     @IsNotEmpty({ message: 'Categoria do produto não pode ser vazia' })
     @IsOptional()
     categoria: string;
+
+    @ValidateNested()
+    @IsArray()
+    @Type(() => AtualizaCaracteristicaProdutoDTO)
+    @IsOptional()
+    caracteristicas?: AtualizaCaracteristicaProdutoDTO[];
+
+    @ValidateNested()
+    @IsArray()
+    @ArrayMinSize(1)
+    @Type(() => AtualizaImagemProdutoDTO)
+    @IsOptional()
+    imagens: AtualizaImagemProdutoDTO[];
 }
